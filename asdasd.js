@@ -108,6 +108,7 @@ function closeModalByKey(event) {
   }
 }
 let c = 0;
+let stat = 1;
 function onModalOpen(event) {
   event.preventDefault();
   if (event.target.nodeName !== 'IMG') {
@@ -115,19 +116,16 @@ function onModalOpen(event) {
   }
   modalEl.classList.toggle('is-open');
   imgModalEl.src = event.target.dataset.source;
+
   c = Number(event.target.id);
+
+  /* stat = event.target.parentNode.parentNode.parentNode.childNodes[`${c}`]; */
 }
 galleryEl.addEventListener('keydown', slideModalByKey);
 
 const test = document.querySelector(`.galleryEl${c}`);
 
 function slideModalByKey(event) {
-  if (event.code === 'ArrowRight') {
-    c += 1;
-  }
-  if (event.code === 'ArrowLeft') {
-    c -= 1;
-  }
   if (c > galleryItems.length - 1) {
     c = 0;
   }
@@ -135,5 +133,14 @@ function slideModalByKey(event) {
     c = galleryItems.length - 1;
   }
   let newStat = event.target.parentNode.parentNode.childNodes[`${c}`];
-  imgModalEl.src = newStat.firstElementChild.firstElementChild.dataset.source;
+
+  if (event.code === 'ArrowRight') {
+    imgModalEl.src = newStat.firstElementChild.firstElementChild.dataset.source;
+  }
+
+  if (event.code === 'ArrowLeft') {
+    c -= 1;
+    imgModalEl.src = newStat.firstElementChild.firstElementChild.dataset.source;
+  }
+  console.log(c);
 }
