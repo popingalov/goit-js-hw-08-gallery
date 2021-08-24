@@ -130,6 +130,12 @@ function slideModalByKey(event) {
   if (event.code === 'ArrowLeft') {
     c -= 1;
   }
+  if (event.keyCode == '38') {
+    c -= 3;
+  }
+  if (event.keyCode == '40') {
+    c += 3;
+  }
   if (c > galleryItems.length - 1) {
     c = 0;
   }
