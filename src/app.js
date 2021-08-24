@@ -139,7 +139,6 @@ function slideModalByKey(event) {
   imgModalEl.src = galleryItems[`${c}`].original;
   imgModalEl.alt = galleryItems[`${c}`].description;
 }
-
 modalEl.addEventListener('click', e => {
   if (e.x > window.visualViewport.width / 2) {
     c += 1;
