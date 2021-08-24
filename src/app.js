@@ -132,9 +132,22 @@ function slideModalByKey(event) {
   }
   if (event.keyCode == '38') {
     c -= 3;
+    if (c === -2) {
+      c = galleryItems.length - 2;
+    }
+    if (c === -3) {
+      c = galleryItems.length - 3;
+    }
   }
   if (event.keyCode == '40') {
     c += 3;
+
+    if (c === galleryItems.length + 1) {
+      c = 1;
+    }
+    if (c === galleryItems.length + 2) {
+      c = 2;
+    }
   }
   if (c > galleryItems.length - 1) {
     c = 0;
@@ -146,6 +159,9 @@ function slideModalByKey(event) {
   imgModalEl.alt = galleryItems[`${c}`].description;
 }
 modalEl.addEventListener('click', e => {
+  if (e.target === overlay) {
+    onModalClose();
+  }
   if (e.x > window.visualViewport.width / 2) {
     c += 1;
   }
