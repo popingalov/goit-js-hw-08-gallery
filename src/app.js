@@ -69,6 +69,7 @@ const modalEl = document.querySelector('.js-lightbox');
 const overlay = document.querySelector('.lightbox__overlay');
 const btnModalClose = document.querySelector('.lightbox__button');
 const imgModalEl = document.querySelector('.lightbox__image');
+const panch = document.querySelector('.lightbox__content');
 
 const galleryMarkup = galleryItems
   .map((img, i) => {
@@ -108,6 +109,7 @@ function closeModalByKey(event) {
   }
 }
 let c = 0;
+
 function onModalOpen(event) {
   event.preventDefault();
   if (event.target.nodeName !== 'IMG') {
@@ -117,7 +119,7 @@ function onModalOpen(event) {
   imgModalEl.src = event.target.dataset.source;
   c = Number(event.target.id);
 }
-galleryEl.addEventListener('keydown', slideModalByKey);
+window.addEventListener('keydown', slideModalByKey);
 
 const test = document.querySelector(`.galleryEl${c}`);
 
@@ -134,6 +136,16 @@ function slideModalByKey(event) {
   if (c < 0) {
     c = galleryItems.length - 1;
   }
-  let newStat = event.target.parentNode.parentNode.childNodes[`${c}`];
-  imgModalEl.src = newStat.firstElementChild.firstElementChild.dataset.source;
+  imgModalEl.src = galleryItems[`${c}`].original;
+  imgModalEl.alt = galleryItems[`${c}`].description;
 }
+
+modalEl.addEventListener('click', e => {
+  if (e.x > window.visualViewport.width / 2) {
+    c += 1;
+    imgModalEl.src = galleryItems[`${c}`].original;
+    imgModalEl.alt = galleryItems[`${c}`].description;
+  } else c -= 1;
+  imgModalEl.src = galleryItems[`${c}`].original;
+  imgModalEl.alt = galleryItems[`${c}`].description;
+});
